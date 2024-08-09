@@ -25,6 +25,8 @@ class ClientPrefs {
 	public static var imagesPersist:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var hideTime:Bool = false;
+	public static var hitboxmode:String = 'Classic';  //starting new way to change between hitboxes yay
+	public static var hitboxalpha:Float = 0.2; //someone request this lol
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
