@@ -227,7 +227,7 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			}
-			else if (FlxG.keys.justPressed.SEVEN #if mobile || virtualPad.buttonE.justPressed #end)
+			else if (FlxG.keys.justPressed.SEVEN #if android || _virtualpad.buttonE.justPressed #end)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
