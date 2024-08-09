@@ -73,7 +73,7 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_X_Y);
+		addVirtualPad(UP_DOWN, A_B_C);
 		#end
 
 		super.create();
@@ -127,14 +127,10 @@ class OptionsState extends MusicBeatState
 		}
 
 		#if android
-		if (_virtualpad.buttonX.justPressed) {
+		if (_virtualpad.buttonC.justPressed) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new android.AndroidControlsMenu());
-		}
-		if (_virtualpad.buttonY.justPressed) {
-			removeVirtualPad();
-			openSubState(new android.HitboxSettingsSubState());
 		}
 		#end
 	}
@@ -713,6 +709,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 	];
 	static var noCheckbox:Array<String> = [
 		'Framerate',
+		'Hitbox Opacity',
 		'Note Delay'
 	];
 
@@ -733,10 +730,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Hide HUD',
 		'Hide Song Length',
 		'Flashing Lights',
-		'Camera Zooms'
-		#if !mobile
-		,'FPS Counter'
-		#end
+		'Camera Zooms',
+		'FPS Counter',
+		'Hitbox Mode',
+		'Hitbox Opacity'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -874,6 +871,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Low Quality':
 						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
 
+					case 'Hitbox Mode':
+						ClientPrefs.hitboxmode = !ClientPrefs.hitboxmode;
+
 					case 'Anti-Aliasing':
 						ClientPrefs.globalAntialiasing = !ClientPrefs.globalAntialiasing;
 						showCharacter.antialiasing = ClientPrefs.globalAntialiasing;
@@ -942,6 +942,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 							FlxG.drawFramerate = ClientPrefs.framerate;
 							FlxG.updateFramerate = ClientPrefs.framerate;
 						}
+					case 'Framerate':
+						ClientPrefs.hitboxalpha += add;
+						if(ClientPrefs.hitboxalpha > 0.9) ClientPrefs.hitboxalpha = 0.9;
 					case 'Note Delay':
 						var mult:Int = 1;
 						if(holdTime > 1.5) { //Double speed after 1.5 seconds holding
@@ -1012,6 +1015,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If unchecked, the camera won't zoom in on a beat hit.";
 			case 'Hide HUD':
 				daText = "If checked, hides most HUD elements.";
+			case 'Hitbox Mode':
+				daText = "Choose your Hitbox Style!";
+			case 'Hitbox Opacity':
+				daText = "Changes opacity!";
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
 		}
@@ -1080,6 +1087,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.violence;
 					case 'Camera Zooms':
 						daValue = ClientPrefs.camZooms;
+					case 'Hitbox Mode':
+						daValue = ClientPrefs.hitboxmode;
 					case 'Hide HUD':
 						daValue = ClientPrefs.hideHud;
 					case 'Persistent Cached Data':
@@ -1097,6 +1106,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				switch(options[textNumber[i]]) {
 					case 'Framerate':
 						daText = '' + ClientPrefs.framerate;
+					case 'Hitbox Opacity':
+						daText = '' + ClientPrefs.hitboxalpha;
 					case 'Note Delay':
 						daText = ClientPrefs.noteOffset + 'ms';
 				}
