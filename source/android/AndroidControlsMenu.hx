@@ -2,7 +2,8 @@ package android;
 
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
-import flixel.ui.FlxButton;
+//import flixel.ui.FlxButton;
+import android.flixel.FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -17,7 +18,7 @@ using StringTools;
 class AndroidControlsMenu extends MusicBeatState
 {
 	var vpad:FlxVirtualPad;
-	var hbox:FlxHitbox;
+	//var hbox:FlxHitbox;
 	var newhbox:FlxNewHitbox;
 	var upPozition:FlxText;
 	var downPozition:FlxText;
@@ -27,7 +28,7 @@ class AndroidControlsMenu extends MusicBeatState
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
 	var controlitems:Array<String> = ['Pad-Right','Pad-Left','Pad-Custom','Duo','Hitbox','Keyboard'];
-	var curSelected:Int = 0;
+	var curSelected:Int = 4;
 	var buttonistouched:Bool = false;
 	var bindbutton:FlxButton;
 	var config:Config;
@@ -42,7 +43,7 @@ class AndroidControlsMenu extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 
 		var titleText:Alphabet = new Alphabet(75, 60, "Android Controls", true);
@@ -51,14 +52,14 @@ class AndroidControlsMenu extends MusicBeatState
 		titleText.alpha = 0.4;
 		add(titleText);
 
-		vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+		vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.data.antialiasing);
 		vpad.alpha = 0;
 		add(vpad);
-
-		hbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
+        /*
+		hbox = new FlxHitbox(0.75, ClientPrefs.data.antialiasing);
 		hbox.visible = false;
 		add(hbox);
-		
+		*/
 		newhbox = new FlxNewHitbox();
 		newhbox.visible = false;
 		add(newhbox);
@@ -138,7 +139,7 @@ class AndroidControlsMenu extends MusicBeatState
 			save();
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new OptionsState());
+			MusicBeatState.switchState(new options.OptionsState());
 		}
 		#end
 	}
@@ -160,20 +161,20 @@ class AndroidControlsMenu extends MusicBeatState
 		{
 				case 'Pad-Right':
 					remove(vpad);
-					vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.data.antialiasing);
 					add(vpad);
 				case 'Pad-Left':
 					remove(vpad);
-					vpad = new FlxVirtualPad(FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(FULL, NONE, 0.75, ClientPrefs.data.antialiasing);
 					add(vpad);
 				case 'Pad-Custom':
 					remove(vpad);
-					vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.data.antialiasing);
 					add(vpad);
 					loadcustom();
 				case 'Duo':
 					remove(vpad);
-					vpad = new FlxVirtualPad(DUO, NONE, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(DUO, NONE, 0.75, ClientPrefs.data.antialiasing);
 					add(vpad);
 				case 'Hitbox':
 					vpad.alpha = 0;
@@ -184,16 +185,14 @@ class AndroidControlsMenu extends MusicBeatState
 
 		if (daChoice != "Hitbox")
 		{
-			hbox.visible = false;
+			//hbox.visible = false;
 			newhbox.visible = false;
 		}
 		else
 		{
-		if(ClientPrefs.hitboxmode != 'New'){
-			hbox.visible = true;
-		     }else{
-		       newhbox.visible = true;
-		     }
+		    //hbox.visible = true;
+		    newhbox.visible = true;
+		     
 		}
 
 		if (daChoice != "Pad-Custom")
@@ -248,7 +247,7 @@ class AndroidControlsMenu extends MusicBeatState
 		}
 	}
 
-	function movebutton(touch:flixel.input.touch.FlxTouch, button:flixel.ui.FlxButton) {
+	function movebutton(touch:flixel.input.touch.FlxTouch, button:android.flixel.FlxButton) {
 		button.x = touch.x - vpad.buttonUp.width / 2;
 		button.y = touch.y - vpad.buttonUp.height / 2;
 		bindbutton = button;
