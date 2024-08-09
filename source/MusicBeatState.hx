@@ -100,6 +100,15 @@ class MusicBeatState extends FlxUIState
 		_virtualpad.cameras = [camcontrol];
 	}
 	#end
+
+	override function destroy() {
+		#if android
+		controls.removeFlxInput(trackedinputsNOTES);
+		controls.removeFlxInput(trackedinputsUI);
+		#end
+
+		super.destroy();
+	}
 	
 	override function create() {
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
