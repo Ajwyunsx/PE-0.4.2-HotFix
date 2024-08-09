@@ -817,6 +817,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 		}
 		changeSelection();
 		reloadValues();
+		#if android
+		addVirtualPad(FULL, A_B);
+		#end
 	}
 
 	var nextAccept:Int = 5;
