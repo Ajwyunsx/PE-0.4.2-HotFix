@@ -937,6 +937,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		} else {
 			if(controls.UI_LEFT || controls.UI_RIGHT) {
 				var add:Int = controls.UI_LEFT ? -1 : 1;
+				var hitadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
 				if(holdTime > 0.5 || controls.UI_LEFT_P || controls.UI_RIGHT_P)
 				switch(options[curSelected]) {
 					case 'Framerate':
@@ -952,8 +953,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 							FlxG.updateFramerate = ClientPrefs.framerate;
 						}
 					case 'Hitbox Opacity':
-						ClientPrefs.hitboxalpha += add;
+						ClientPrefs.hitboxalpha += hitadd;
 						if(ClientPrefs.hitboxalpha > 0.9) ClientPrefs.hitboxalpha = 0.9;
+						else if(ClientPrefs.hitboxalpha < 0.0) ClientPrefs.hitboxalpha = 0.0;
 					case 'Note Delay':
 						var mult:Int = 1;
 						if(holdTime > 1.5) { //Double speed after 1.5 seconds holding
