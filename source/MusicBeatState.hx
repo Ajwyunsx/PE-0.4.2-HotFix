@@ -23,14 +23,11 @@ import android.FlxVirtualPad;
 
 class MusicBeatState extends FlxUIState
 {
-	private var curSection:Int = 0;
-	private var stepsToDo:Int = 0;
+	private var lastBeat:Float = 0;
+	private var lastStep:Float = 0;
 
 	private var curStep:Int = 0;
 	private var curBeat:Int = 0;
-
-	private var curDecStep:Float = 0;
-	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
 
 	public static var camBeat:FlxCamera;
