@@ -217,6 +217,9 @@ class NotesSubstate extends MusicBeatSubstate
 		hsvText = new Alphabet(0, 0, "Hue    Saturation  Brightness", false, false, 0, 0.65);
 		add(hsvText);
 		changeSelection();
+		#if android
+		addVirtualPad(FULL, A_B_C);
+		#end
 	}
 
 	var changingNote:Bool = false;
@@ -271,7 +274,7 @@ class NotesSubstate extends MusicBeatSubstate
 				changeType(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if(controls.RESET) {
+			if(controls.RESET #if android || _virtualpad.buttonC.justPressed #end) {
 				for (i in 0...3) {
 					resetValue(curSelected, i);
 				}
@@ -331,7 +334,12 @@ class NotesSubstate extends MusicBeatSubstate
 				grpNotes.forEachAlive(function(spr:FlxSprite) {
 					spr.alpha = 0;
 				});
+				#if android
+				FlxTransitionableState.skipNextTransOut = true;
+				FlxG.resetState();
+				#else
 				close();
+				#end
 			}
 			changingNote = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
