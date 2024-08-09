@@ -58,7 +58,23 @@ class OptionsState extends MusicBeatState
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
 			grpOptions.add(optionText);
 		}
+		#if android
+		var tipText:FlxText = new FlxText(10, 12, 0, 'Press X to Go In Android Controls Menu', 16);
+		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 2;
+		tipText.scrollFactor.set();
+		add(tipText);
+		var tipText:FlxText = new FlxText(10, 32, 0, 'Press Y to Go In Hitbox Settings Menu', 16);
+		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 2;
+		tipText.scrollFactor.set();
+		add(tipText);
+		#end
 		changeSelection();
+
+		#if android
+		addVirtualPad(UP_DOWN, A_B_X_Y);
+		#end
 
 		super.create();
 	}
@@ -91,15 +107,36 @@ class OptionsState extends MusicBeatState
 
 			switch(options[curSelected]) {
 				case 'Notes':
+					#if android
+				        removeVirtualPad();
+				        #end
 					openSubState(new NotesSubstate());
 
 				case 'Controls':
+					#if android
+				        removeVirtualPad();
+				        #end
 					openSubState(new ControlsSubstate());
 
 				case 'Preferences':
+					#if android
+				        removeVirtualPad();
+				        #end
 					openSubState(new PreferencesSubstate());
 			}
 		}
+
+		#if android
+		if (_virtualpad.buttonX.justPressed) {
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new android.AndroidControlsMenu());
+		}
+		if (_virtualpad.buttonY.justPressed) {
+			removeVirtualPad();
+			openSubState(new android.HitboxSettingsSubState());
+		}
+		#end
 	}
 	
 	function changeSelection(change:Int = 0) {
