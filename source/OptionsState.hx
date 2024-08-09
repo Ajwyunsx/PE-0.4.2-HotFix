@@ -951,7 +951,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 							FlxG.drawFramerate = ClientPrefs.framerate;
 							FlxG.updateFramerate = ClientPrefs.framerate;
 						}
-					case 'Framerate':
+					case 'Hitbox Opacity':
 						ClientPrefs.hitboxalpha += add;
 						if(ClientPrefs.hitboxalpha > 0.9) ClientPrefs.hitboxalpha = 0.9;
 					case 'Note Delay':
