@@ -70,7 +70,7 @@ class MusicBeatState extends FlxUIState
 			case DUO:
 				controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
 			case HITBOX:
-			   if(ClientPrefs.hitboxmode != 'New'){
+			   if(ClientPrefs.hitboxmode != true){
 				controls.setHitBox(androidc.hbox);
 				}else{
 				controls.setNewHitBox(androidc.newhbox);
