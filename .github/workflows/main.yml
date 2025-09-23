@@ -48,17 +48,16 @@ jobs:
           haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime 8.0.2
           haxelib install openfl 9.1.0
-          haxelib --never install flixel 5.2.2
-          haxelib run lime setup flixel
+          haxelib install flixel 5.2.2
           haxelib install flixel-tools
-          haxelib install flixel-ui
+          haxelib install flixel-ui 2.6.0
           haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hscript
           haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
           haxelib git linc_luajit https://github.com/AnDevGo/linc_luajit-S
-          haxelib install extension-androidtools
+          haxelib git extension-androidtools https://github.com/MaysLastPlays-Stuff/extension-androidtools-old
           haxelib install hxcpp-debug-server
           haxelib list
       - name: Create Version Tag
@@ -71,7 +70,7 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set lime 8.0.1
+          haxelib set lime 8.0.2
           haxelib set openfl 9.1.0
           haxelib set flixel 5.2.2
           haxelib set flixel-addons 2.11.0
