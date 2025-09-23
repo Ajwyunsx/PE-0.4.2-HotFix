@@ -46,7 +46,7 @@ jobs:
         run: |
           haxelib setup ~/haxelib
           haxelib git hxcpp https://github.com/HomuHomu833-garbage/hxcpp
-          haxelib git lime https://github.com/QQQEB159/lime
+          haxelib git lime 8.0.2
           haxelib install openfl 9.1.0
           haxelib install flixel 5.2.2
           haxelib install flixel-tools
@@ -57,6 +57,7 @@ jobs:
           haxelib install hscript
           haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
           haxelib git linc_luajit https://github.com/AnDevGo/linc_luajit-S
+          haxelib install extension-androidtools 2.1.0
           haxelib install hxcpp-debug-server
           haxelib list
       - name: Create Version Tag
