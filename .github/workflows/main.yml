@@ -29,13 +29,13 @@ jobs:
         uses: nttld/setup-ndk@main
         id: setup-ndk
         with:
-          ndk-version: r27c
+          ndk-version: r15c
 
       - name: Setup Java JDK
         uses: actions/setup-java@main
         with:
           distribution: 'zulu'
-          java-version: 21
+          java-version: 11
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.2.0
